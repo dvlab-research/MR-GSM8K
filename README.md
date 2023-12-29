@@ -1,10 +1,13 @@
 # DiagGSM8K - A Novel Benchmark for Evaluating Reasoning in LLMs
+[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](CODE_LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
+
+<p align="center">
+🤗 <a href="https://huggingface.co/datasets/Randolphzeng/DiagGSM8K" target="_blank">HF Dataset</a> • 📃 <a href="https://arxiv.org/abs/2312.17080" target="_blank"> Arxiv Paper </a><br>
+</p>
+
 
 Welcome to the official repository for the DiagGSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "Challenge LLMs to Reason About Reasoning: A Benchmark to Unveil Cognitive Depth in LLMs".
-
-Access the DiagGSM8K dataset on Huggingface: [DiagGSM8K Dataset](https://huggingface.co/datasets/Randolphzeng/DiagGSM8K)
-
-Our paper: [Challenge LLMs to Reason About Reasoning](https://arxiv.org/abs/2312.17080).
 
 ## About the Evaluation Benchmark
 
@@ -43,7 +46,9 @@ There are 3000 data instances in the DiagGSM8K benchmark and you can access it a
 }
 ```  
 
-
+## Scripts
+To reproduce the results from the paper, see `scripts/eval_*.py` files for more details. Most of them should be self-explanatory.
+To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `scripts/run.sh` to invoke the `scripts/train_math.py` script modified from MetaMath repo. The finetuning data is provided in `dataset/synthesized_training_data.jsonl`. You might want to blend it with the GSM8K training set to reproduce our setup.  
 
 ## Citation
 
