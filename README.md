@@ -8,6 +8,7 @@
 
 
 Welcome to the official repository for the DiagGSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "Challenge LLMs to Reason About Reasoning: A Benchmark to Unveil Cognitive Depth in LLMs".
+We encourage other SOTA Math LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
 ## About the Evaluation Benchmark
 
