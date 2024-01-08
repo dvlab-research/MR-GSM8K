@@ -10,6 +10,9 @@
 Welcome to the official repository for the DiagGSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "Challenge LLMs to Reason About Reasoning: A Benchmark to Unveil Cognitive Depth in LLMs".
 We encourage other SOTA Math LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
+## Disclaimer
+We are working hard on expanding this evaluation paradigm to include more subjects with varying difficulties. Please consider to put a star on this repo as we will continue to update the dataset and the original paper. 
+
 ## About the Evaluation Benchmark
 
 DiagGSM8K is a challenging benchmark designed to evaluate the meta-reasoning capabilities of state-of-the-art Large Language Models (LLMs). It goes beyond traditional evaluation metrics by focusing on the reasoning process rather than just the final answer, thus offering a more nuanced assessment of a model's cognitive abilities.
