@@ -1,4 +1,4 @@
-# DiagGSM8K - A Novel Benchmark for Evaluating Reasoning in LLMs
+# MR-GSM8K - A Novel Benchmark for Evaluating Reasoning in LLMs
 [![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](CODE_LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
@@ -6,20 +6,21 @@
 🤗 <a href="https://huggingface.co/datasets/Randolphzeng/DiagGSM8K" target="_blank">HF Dataset</a> • 📃 <a href="https://arxiv.org/abs/2312.17080" target="_blank"> Arxiv Paper </a><br>
 </p>
 
-
-Welcome to the official repository for the DiagGSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "Challenge LLMs to Reason About Reasoning: A Benchmark to Unveil Cognitive Depth in LLMs".
+Welcome to the official repository for the MR-GSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation".
 We encourage other SOTA Math LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
-## Disclaimer
-We are working hard on expanding this evaluation paradigm to include more subjects with varying difficulties. Please consider to put a star on this repo as we will continue to update the dataset and the original paper. 
+## News
+[2024.01.19] We submitted our second draft of MR-GSM8K paper with minor cleaning of the dataset and introduced our novel metrics MR-Score.
+[2024.01.07] We are working hard on creating a more holistic and multifaceted evaluation benchmark that broadens the scope and difficulty levels of current MR-GSM8K. Please stay tuned and consider adding a star for updates! 
+[2023.12.28] We submitted our first draft of MR-GSM8k paper and also open-sourced the benchmark and its evaluation results
 
 ## About the Evaluation Benchmark
 
-DiagGSM8K is a challenging benchmark designed to evaluate the meta-reasoning capabilities of state-of-the-art Large Language Models (LLMs). It goes beyond traditional evaluation metrics by focusing on the reasoning process rather than just the final answer, thus offering a more nuanced assessment of a model's cognitive abilities.
+MR-GSM8K is a challenging benchmark designed to evaluate the meta-reasoning capabilities of state-of-the-art Large Language Models (LLMs). It goes beyond traditional evaluation metrics by focusing on the reasoning process rather than just the final answer, thus offering a more nuanced assessment of a model's cognitive abilities.
 
 Specifically, given a GSM8K question and its solution, the evaluated model is tasked to predict the correctness of the solution. If the solution is incorrect, the model is expected to further locate the first error location and elucidate the error reason. Note that each test problem is combined with two variations which requires code solution and backward reasoning.
 
-![DiagGSM8K Illustration](images/illustration.png)
+![MR-GSM8K Illustration](images/illustration.png)
 
 ## Evaluation results
 | Model            | Eval Method | Accuracy   | TPR         | TNR         | Step        | Step+Reason |
@@ -34,7 +35,7 @@ Specifically, given a GSM8K question and its solution, the evaluated model is ta
 
 
 ## Benchmark Details
-There are 3000 data instances in the DiagGSM8K benchmark and you can access it at `dataset/DiagGSM8k.json`. Below is the description of the fields in the data instances:
+There are 3000 data instances in the MR-GSM8K benchmark and you can access it at `dataset/MR-GSM8k.json`. Below is the description of the fields in the data instances:
 ```
 {
   'uuid': 'the unique identifier of instance',
@@ -56,7 +57,7 @@ To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `s
 
 ## Citation
 
-If you use the DiagGSM8K dataset or find our research beneficial to your work, we encourage you to cite our paper. Here is the BibTeX entry for citation:
+If you use the MR-GSM8K dataset or find our research beneficial to your work, we encourage you to cite our paper. Here is the BibTeX entry for citation:
 
 ```bibtex
 @misc{zeng2023challenge,
