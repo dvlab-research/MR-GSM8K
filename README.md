@@ -11,7 +11,9 @@ We encourage other SOTA Math LLMS to try out our benchmark and return its result
 
 ## News
 [2024.01.19] We submitted our second draft of MR-GSM8K paper with minor cleaning of the dataset and introduced our novel metrics MR-Score.
+
 [2024.01.07] We are working hard on creating a more holistic and multifaceted evaluation benchmark that broadens the scope and difficulty levels of current MR-GSM8K. Please stay tuned and consider adding a star for updates! 
+
 [2023.12.28] We submitted our first draft of MR-GSM8k paper and also open-sourced the benchmark and its evaluation results
 
 ## About the Evaluation Benchmark
