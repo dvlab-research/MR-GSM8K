@@ -1,0 +1,101 @@
+[
+  {
+    "uuid": "adc113b1-d99d-406b-9829-76f94280bfe0",
+    "question": "Marcy makes homemade candles that she markets as 99% guaranteed not to explode. 5% of the more dangerous candles also have a defect that makes them smell like wet dog. If she makes 50000 candles, how many of them will both smell like wet dog and explode?",
+    "ground_truth_solution": "First find what percentage of the candles explode: 100% - 99% = 1%\nThen multiply the odds of the candles exploding by the odds of them smelling like wet dog to find the probability of both events happening: 1% * 5% = 0.05%\nThen multiply that percentage by the number of candles to find the number of them that have both defects: 0.05% * 50000 candles = <<0.05*.01*50000=25>>25 candles\n#### 25",
+    "ground_truth_answer": "25",
+    "model_output_steps": [
+      "Step 1: If 5% of the candles have a defect that makes them smell like wet dog, then 5% of 50000 candles is 0.05 * 50000 = 2500 candles.",
+      "Step 2: Since the candles are 99% guaranteed not to explode, then 99% of 50000 candles is 0.99 * 50000 = 49500 candles.",
+      "Step 3: So, the number of candles that both smell like wet dog and explode is 2500 candles.",
+      "Step 4: #### 2500",
+      "Step 5: The answer is: 2500"
+    ],
+    "model_output_answer_correctness": "wrong",
+    "model_output_solution_correctness": "wrong",
+    "model_output_solution_first_error_step": 3,
+    "model_output_solution_first_error_reason": "Misunderstanding, the number of candles that will both smell like wet dog and explode is calculated as (1-0.99)*0.05*50000 = 25.",
+    "question_type": "original",
+    "wizardmath_70B_eval_output": {
+      "response": "The student correctly figures out that 5% of 50000 candles is 2500 candles in step 1. The student also correctly figures out that 99% of 50000 candles is 49500 candles in step 2. However, the student fails to understand the question and provides the wrong answer in step 3. The question asks for the number of candles that both smell like wet dog and explode, which is not given in the problem. Therefore, the student's answer is incorrect.\n\nFinal Judgement: wrong\nFirst Error Step: Step 3\nError Analysis: The student fails to understand the question and provides the wrong answer. The question asks for the number of candles that both smell like wet dog and explode, which is not given in the problem.\n\nThe answer is: 2500.\n\n",
+      "correctness_pred": "wrong",
+      "error_step_pred": "Step 3",
+      "error_reason": "The student fails to understand the question and provides the wrong answer. The question asks for the number of candles that both smell like wet dog and explode, which is not given in the problem.\n\nThe answer is: 2500.\n\n"
+    },
+    "error_reason_correctness": "correct",
+    "gpt4_error_reason_correctness_analysis": {
+      "response": "1. Step-by-Step Reasoning:\n   - The correct approach to find the number of candles that both smell like wet dog and explode is to first determine the percentage of candles that explode, which is 100% - 99% = 1%.\n   - Then, we need to find 5% of these exploding candles, since only 5% of the dangerous candles have the wet dog smell defect.\n   - So, we calculate 1% of 50,000 candles to find out how many explode, which is 0.01 * 50,000 = 500 candles.\n   - Now, we calculate 5% of these 500 exploding candles to find out how many have the wet dog smell, which is 0.05 * 500 = 25 candles.\n   - Therefore, 25 candles will both smell like wet dog and explode.\n\n2. Student Error Reason Analysis:\n   - The student incorrectly assumed that 5% of all candles have the wet dog smell, rather than 5% of the exploding candles.\n   - The student then incorrectly assumes that 99% of the candles will not explode, which is not the information needed to solve the problem.\n   - The student's explanation that the number of candles that both smell like wet dog and explode is not given in the problem is incorrect because the problem provides enough information to calculate this number.\n   - The student does not recognize that the calculation should involve finding the intersection of the two independent probabilities (exploding and smelling like wet dog).\n\n3. Final Decision:\n   Wrong",
+      "Error Comprehension": "- The correct approach to find the number of candles that both smell like wet dog and explode is to first determine the percentage of candles that explode, which is 100% - 99% = 1%.\n   - Then, we need to find 5% of these exploding candles, since only 5% of the dangerous candles have the wet dog smell defect.\n   - So, we calculate 1% of 50,000 candles to find out how many explode, which is 0.01 * 50,000 = 500 candles.\n   - Now, we calculate 5% of these 500 exploding candles to find out how many have the wet dog smell, which is 0.05 * 500 = 25 candles.\n   - Therefore, 25 candles will both smell like wet dog and explode.\n\n2.",
+      "Model Error Reason Analysis": "- The student incorrectly assumed that 5% of all candles have the wet dog smell, rather than 5% of the exploding candles.\n   - The student then incorrectly assumes that 99% of the candles will not explode, which is not the information needed to solve the problem.\n   - The student's explanation that the number of candles that both smell like wet dog and explode is not given in the problem is incorrect because the problem provides enough information to calculate this number.\n   - The student does not recognize that the calculation should involve finding the intersection of the two independent probabilities (exploding and smelling like wet dog).\n\n3.",
+      "Final Decision": "Wrong"
+    }
+  },
+  {
+    "uuid": "da53a94c-5efa-452d-8400-b2f6d515585e",
+    "question": "Mary and John got married last weekend.\u00a0 There were 20 private cars and 12 buses parked outside the church.\u00a0 After the ceremony, each bus carried 35 people and each car carried 3 people. How many people were inside the church?",
+    "ground_truth_solution": "There were 20 private cars * 3 people = <<20*3=60>>60 people.\nThere were 12 buses * 35 people = <<12*35=420>>420 people.\nTotal inside the church was 60 people + 420 people = <<60+420=480>>480 people.\n#### 480",
+    "ground_truth_answer": "480",
+    "model_output_steps": [
+      "Step 1: There were 20 private cars and each car carried 3 people, so there were 20 * 3 = 60 people in the cars.",
+      "Step 2: There were 12 buses and each bus carried 35 people, so there were 12 * 35 = 420 people in the buses.",
+      "Step 3: In total, there were 60 + 420 = 480 people outside the church.",
+      "Step 4: Since the church was full, the number of people inside the church is the total number of people minus the people outside, so it is 480 - 480 = 0",
+      "Step 5: Therefore, there were 0 people inside the church.",
+      "Step 6: #### 0",
+      "Step 7: The answer is: 0"
+    ],
+    "model_output_answer_correctness": "wrong",
+    "model_output_solution_correctness": "wrong",
+    "model_output_solution_first_error_step": 4,
+    "model_output_solution_first_error_reason": "Misunderstanding, the problem didn't mention that the church was full. Following the steps, the third step has already calculated the total number of people in the church = 480 people.",
+    "question_type": "original",
+    "wizardmath_70B_eval_output": {
+      "response": "The student correctly calculated the number of people in the cars and the number of people in the buses. \nThe student also correctly calculated the total number of people outside the church. \nHowever, the student made an error in step 4. Since the church was full, the number of people inside the church should be equal to the total number of people outside the church. \nTherefore, the number of people inside the church is 480. \nThe final answer is: 480.\n\nFinal Judgement: wrong\nFirst Error Step: Step 4\nError Analysis: The student made an error in step 4. Since the church was full, the number of people inside the church should be equal to the total number of people outside the church. Therefore, the number of people inside the church is 480.\n\nThe answer is: 480.\n\n",
+      "correctness_pred": "wrong",
+      "error_step_pred": "Step 4",
+      "error_reason": "The student made an error in step 4. Since the church was full, the number of people inside the church should be equal to the total number of people outside the church. Therefore, the number of people inside the church is 480.\n\nThe answer is: 480.\n\n"
+    },
+    "error_reason_correctness": "incorrect",
+    "gpt4_error_reason_correctness_analysis": {
+      "response": "1. Step-by-Step Reasoning:\n- Step 1 correctly calculates the number of people in the cars.\n- Step 2 correctly calculates the number of people in the buses.\n- Step 3 correctly sums the number of people in the cars and buses to find the total number of people.\n- Step 4 incorrectly assumes that there were people outside the church that need to be subtracted from the total number inside the church. The problem does not state that there were people outside the church who were not also inside the church. The error is in the assumption that people are both inside and outside the church simultaneously.\n- Step 5 incorrectly concludes that there were 0 people inside the church based on the erroneous calculation in step 4.\n- Steps 6 and 7 restate the incorrect conclusion.\n\n2. Student Error Reason Analysis:\n- The student correctly identifies that the error occurs in step 4.\n- The student correctly explains that the number of people inside the church should be equal to the total number of people transported by the cars and buses.\n- The student correctly concludes that the number of people inside the church is 480, not 0.\n\n3. Final Decision:\nCorrect",
+      "Error Comprehension": "- Step 1 correctly calculates the number of people in the cars.\n- Step 2 correctly calculates the number of people in the buses.\n- Step 3 correctly sums the number of people in the cars and buses to find the total number of people.\n- Step 4 incorrectly assumes that there were people outside the church that need to be subtracted from the total number inside the church. The problem does not state that there were people outside the church who were not also inside the church. The error is in the assumption that people are both inside and outside the church simultaneously.\n- Step 5 incorrectly concludes that there were 0 people inside the church based on the erroneous calculation in step 4.\n- Steps 6 and 7 restate the incorrect conclusion.\n\n2.",
+      "Model Error Reason Analysis": "- The student correctly identifies that the error occurs in step 4.\n- The student correctly explains that the number of people inside the church should be equal to the total number of people transported by the cars and buses.\n- The student correctly concludes that the number of people inside the church is 480, not 0.\n\n3.",
+      "Final Decision": "Correct"
+    }
+  },
+  {
+    "uuid": "cd5a8dd6-d8e5-426f-8a83-1b2652823966",
+    "question": "Candice put 80 post-it notes in her purse before she headed out to her job at the coffee shop.\u00a0 On her way, she stopped off at the store and purchased a package of Post-it notes;\u00a0 At work, she placed a single Post-it note on each of 220 different cups of coffee.\u00a0 If she had 23 post-it notes remaining overall, how many Post-it notes were in the package that she purchased?",
+    "ground_truth_solution": "Let's let x be the number of post-it notes in the package that Candice purchased.\nThen, the total number of post-it notes she had when she left the store was 80+x.\nAnd if she used 220 Post-it notes at work and had 23 left, then 80+x=220+23\nSubtracting 80 from each side of the equation, we see that x=220+23-80=<<220+23-80=163>>163 Post-it notes.\n#### 163",
+    "ground_truth_answer": "163",
+    "model_output_steps": [
+      "Step 1: Candice had 80 post-it notes in her purse.",
+      "Step 2: She placed a single post-it note on each of 220 cups of coffee.",
+      "Step 3: So, she used 220 post-it notes at work.",
+      "Step 4: She had 23 post-it notes remaining overall.",
+      "Step 5: Therefore, the total number of post-it notes she used is 220 + 23 = 243.",
+      "Step 6: Since she had 80 post-it notes in her purse, the number of post-it notes in the package she purchased is 80 - 243 = -163.",
+      "Step 7: However, we cannot have a negative number of post-it notes, so we can conclude that the package she purchased did not have any post-it notes.",
+      "Step 8: #### 163",
+      "Step 9: The answer is: 163"
+    ],
+    "model_output_answer_correctness": "correct",
+    "model_output_solution_correctness": "wrong",
+    "model_output_solution_first_error_step": 6,
+    "model_output_solution_first_error_reason": "The calculation is incorrect, the quantity she purchased should be the total minus what was in her purse, that is, 243-80=163.",
+    "question_type": "original",
+    "wizardmath_70B_eval_output": {
+      "response": "The student correctly figures out the total number of post-it notes Candice used is 220 + 23 = 243 in step 5. \nHowever, the student makes a mistake in step 6 by subtracting the number of post-it notes Candice had in her purse from the total number of post-it notes she used. This is not correct because the number of post-it notes Candice had in her purse is not the same as the number of post-it notes she used at work. \nInstead, we should subtract the number of post-it notes Candice had remaining from the total number of post-it notes she used to find the number of post-it notes in the package she purchased. \nSo, the number of post-it notes in the package she purchased is 243 - 23 = 220. \nTherefore, the answer is 220.\n\nFinal Judgement: wrong\nFirst Error Step: Step 6\nError Analysis: The student subtracted the number of post-it notes Candice had in her purse from the total number of post-it notes she used, which is not correct. The number of post-it notes Candice had in her purse is not the same as the number of post-it notes she used at work. Instead, we should subtract the number of post-it notes Candice had remaining from the total number of post-it notes she used to find the number of post-it notes in the package she purchased.\n\nThe answer is: 220.\n\n",
+      "correctness_pred": "wrong",
+      "error_step_pred": "Step 6",
+      "error_reason": "The student subtracted the number of post-it notes Candice had in her purse from the total number of post-it notes she used, which is not correct. The number of post-it notes Candice had in her purse is not the same as the number of post-it notes she used at work. Instead, we should subtract the number of post-it notes Candice had remaining from the total number of post-it notes she used to find the number of post-it notes in the package she purchased.\n\nThe answer is: 220.\n\n"
+    },
+    "error_reason_correctness": "incorrect",
+    "gpt4_error_reason_correctness_analysis": {
+      "response": "1. Step-by-Step Reasoning:\n- Step 1: Candice starts with 80 post-it notes.\n- Step 2: She uses 220 post-it notes at work.\n- Step 3: She has 23 post-it notes left.\n- Step 4: The total number of post-it notes she had after buying more is 220 (used) + 23 (left) = 243.\n- Step 5: To find the number of post-it notes she purchased, subtract the original 80 from the total of 243, getting 243 - 80 = 163.\n\n2. Student Error Reason Analysis:\n- The student correctly identifies that subtracting the number of post-it notes Candice had in her purse (80) from the total number of post-it notes she used (243) is incorrect.\n- The student incorrectly suggests subtracting the number of post-it notes remaining (23) from the total used (220) to find the number of post-it notes in the package. This calculation is not relevant to the question asked.\n- The correct calculation should be subtracting the number of post-it notes Candice initially had (80) from the total number of post-it notes she ended up with (243).\n\n3. Final Decision:\nWrong",
+      "Error Comprehension": "- Step 1: Candice starts with 80 post-it notes.\n- Step 2: She uses 220 post-it notes at work.\n- Step 3: She has 23 post-it notes left.\n- Step 4: The total number of post-it notes she had after buying more is 220 (used) + 23 (left) = 243.\n- Step 5: To find the number of post-it notes she purchased, subtract the original 80 from the total of 243, getting 243 - 80 = 163.\n\n2.",
+      "Model Error Reason Analysis": "- The student correctly identifies that subtracting the number of post-it notes Candice had in her purse (80) from the total number of post-it notes she used (243) is incorrect.\n- The student incorrectly suggests subtracting the number of post-it notes remaining (23) from the total used (220) to find the number of post-it notes in the package. This calculation is not relevant to the question asked.\n- The correct calculation should be subtracting the number of post-it notes Candice initially had (80) from the total number of post-it notes she ended up with (243).\n\n3.",
+      "Final Decision": "Wrong"
+    }
+  }
+]

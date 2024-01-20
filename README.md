@@ -10,9 +10,9 @@ Welcome to the official repository for the MR-GSM8K dataset and related research
 We encourage other SOTA Math LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
 ## News
-[2024.01.19] We submitted our second draft of MR-GSM8K paper with minor cleaning of the dataset and introduced our novel metrics MR-Score.
+[2024.01.19] We submitted our second draft of MR-GSM8K(renamed from DiagGSM8k) paper with minor cleaning of the dataset and introduced our novel metrics MR-Score. This update is mainly for naming consistency for the future expansion to more subjects and different difficulties. Please rest in sure that this should be our (hopefully) last major updates on the repo config and we are sorry for the confusion!
 
-[2024.01.07] We are working hard on creating a more holistic and multifaceted evaluation benchmark that broadens the scope and difficulty levels of current MR-GSM8K. Please stay tuned and consider adding a star for updates! 
+[2024.01.07] We are working hard on creating a more holistic and multifaceted evaluation benchmark that broadens the scope and difficulty levels of current MR-GSM8K. Please stay tuned and consider adding a star for updates.
 
 [2023.12.28] We submitted our first draft of MR-GSM8k paper and also open-sourced the benchmark and its evaluation results
 
@@ -24,16 +24,40 @@ Specifically, given a GSM8K question and its solution, the evaluated model is ta
 
 ![MR-GSM8K Illustration](images/illustration.png)
 
+## Our Evaluation Metric MR-Score
+In order to provide a unified and normalized score to reflect the overall competence of the evaluated model, we hereby propose a novel metric named MR-Score.
+MR-Score is a weighted combination of three metrics. The first one is the Matthews Correlation Coefficient (e.g. MCC) for the binary classification of solution correctness. The MCC score ranges from -1 to +1 with -1 means total disagreement between prediction and observation, 0 indicates near random performance and +1 represents perfect prediction. Here we interpret negative values as no better than random guess and set 0 as cut-off threshold for normalization purpose. The second metric is the ratio between numbers of solutions with correct first error step predicted and the total number of incorrect solutions. The third metrics is likewise the ratio between number of solutions with correct first error step plus correct error reason predicted and the total number of incorrect solutions. 
+
+The formula of MR-Score is defined as 
+```
+MR-Score = w_1 * MCC + w_2 * Accuracy(step) + w_3 * Accuracy(reason)
+```
+where w_1, w_2, w_3 are chosen empirically as 0.2, 0.3 and 0.5. For more discussion on the metrics please refer to section-3 of the paper.
+
 ## Evaluation results
-| Model            | Eval Method | Accuracy   | TPR         | TNR         | Step        | Step+Reason |
-|------------------|-------------|------------|-------------|-------------|-------------|-------------|
-| Claude2          | 0-shot      | 1968/3000  | 962/1427    | 1056/1573   | 331/1573    | 185/1573    |
-| GPT3-5           | 0-shot      | 1701/3000  | 1125/1427   | 621/1573    | 179/1573    | 73/1573     |
-| GPT4             | 0-shot      | 2359/3000  | 985/1427    | 1425/1573   | 823/1573    | 677/1573    |
-| WizardMath-70B   | 3-shot      | 1187/3000  | 1176/1427   | 43/1573     | 6/1573      | 1/1573      |
-| Mammoth-70B      | 3-shot      | 1451/3000  | 1410/1427   | 43/1573     | 4/1573      | 1/1573      |
-| MetaMath-70B     | 3-shot      | 1471/3000  | 1305/1427   | 166/1573    | 22/1573     | 6/1573      |
-| llama2-70B-diag  | 0-shot      | 1609/3000  | 453/1427    | 1156/1573   | 327/1573    | 99/1573     |
+Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance, including True Positive Rate (TPR), True Negative Rate (TNR) and Matthews Correlation Coefficient. The 'Step' column represents the accuracy of correctly identifying an incorrect solution and pinpointing the first error step. 'S+R/M' column showcased the accuracy of not only locating the first error step in incorrect solutions but also correctly explaining the error's rationale. The overall MR-Score/M is a normalized metric ranges from 0 to 1 and calculated based on formula described in Section-3 of the paper. The M/A here indicate that the error reason is either labelled manually or by by GPT4-Turbo-1106 and MR-Score is calculated based on the respective results. 
+
+| Model           | Eval Method | TPR     | TNR     | MCC   | Step   | S+R/M  | MR-Score/M | 
+|-----------------|-------------|---------|---------|-------|--------|--------|------------|
+| Claude2         | 0-shot      | 67.41%  | 67.13%  | 0.345 | 21.04% | 11.76% | 0.191      |
+| GPT3-5          | 0-shot      | 78.84%  | 39.48%  | 0.198 | 11.38% | 4.64%  | 0.097      |
+| GPT4            | 0-shot      | 69.03%  | 90.59%  | 0.614 | 52.32% | 43.04% | 0.495      |
+| WizardMath-70B  | 3-shot      | 82.41%  | 2.73%   | -0.250| 0.38%  | 0.06%  | 0.001      |
+| Mammoth-70B     | 3-shot      | 98.81%  | 2.73%   | 0.055 | 0.25%  | 0.06%  | 0.012      |
+| MetaMath-70B    | 3-shot      | 91.45%  | 10.55%  | 0.034 | 1.40%  | 0.38%  | 0.013      |
+| llama2-70B-diag | 0-shot      | 31.74%  | 73.49%  | 0.058 | 20.79% | 6.29%  | 0.105      |
+
+| Model           | Eval Method | TPR     | TNR     | MCC   | Step   | S+R/M  | MR-Score/M | MR-Score/A |
+|-----------------|-------------|---------|---------|-------|--------|--------|------------|------------|
+| Claude2         | 0-shot      | 67.41%  | 67.13%  | 0.345 | 21.04% | 11.76% | 0.191      | 0.203      |
+| GPT3-5          | 0-shot      | 78.84%  | 39.48%  | 0.198 | 11.38% | 4.64%  | 0.097      | 0.097      |
+| GPT4            | 0-shot      | 69.03%  | 90.59%  | 0.614 | 52.32% | 43.04% | 0.495      | 0.512      |
+| WizardMath-70B  | 3-shot      | 82.41%  | 2.73%   | -0.250| 0.38%  | 0.06%  | 0.001      | 0.001      |
+| Mammoth-70B     | 3-shot      | 98.81%  | 2.73%   | 0.055 | 0.25%  | 0.06%  | 0.012      | 0.012      |
+| MetaMath-70B    | 3-shot      | 91.45%  | 10.55%  | 0.034 | 1.40%  | 0.38%  | 0.013      | 0.013      |
+| llama2-70B-diag | 0-shot      | 31.74%  | 73.49%  | 0.058 | 20.79% | 6.29%  | 0.105      | 0.118      |
+
+
 
 
 ## Benchmark Details
