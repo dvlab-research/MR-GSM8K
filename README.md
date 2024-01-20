@@ -80,6 +80,7 @@ There are 3000 data instances in the MR-GSM8K benchmark and you can access it at
 ## Scripts
 To reproduce the results from the paper, see `scripts/eval_*.py` files for more details. Most of them should be self-explanatory.
 To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `scripts/run.sh` to invoke the `scripts/train_math.py` script modified from MetaMath repo. The finetuning data is provided in `dataset/synthesized_training_data.jsonl`. You might want to blend it with the GSM8K training set to reproduce our setup.  
+The `scripts/auto_grade_error_reasons.py` script is what we used for auto labelling the error reasons and the MR-Score is calculated from the naive implementation script of `scripts/calculate_mr_score.py`.
 
 ## Citation
 
