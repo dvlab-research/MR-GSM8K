@@ -77,11 +77,9 @@ The `scripts/auto_grade_error_reasons.py` script is what we used for auto labell
 If you use the MR-GSM8K dataset or find our research beneficial to your work, we encourage you to cite our paper. Here is the BibTeX entry for citation:
 
 ```bibtex
-@misc{zeng2024mrgsm8k,
-      title={MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation}, 
-      author={Zhongshen Zeng and Pengguang Chen and Shu Liu and Haiyun Jiang and Jiaya Jia},
-      year={2024},
-      eprint={2312.17080},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@article{zeng2024mrgsm8k,
+  title={MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation},
+  author={Zeng, Zhongshen and Chen, Pengguang and Jiang, Haiyun and Jia, Jiaya},
+  journal={arXiv preprint arXiv:2312.17080},
+  year={2024}
 }
