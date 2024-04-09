@@ -79,7 +79,7 @@ If you use the MR-GSM8K dataset or find our research beneficial to your work, we
 ```bibtex
 @article{zeng2024mrgsm8k,
   title={MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation},
-  author={Zeng, Zhongshen and Chen, Pengguang and Jiang, Haiyun and Jia, Jiaya},
+  author={Zeng, Zhongshen and Chen, Pengguang and Liu, Shu and Jiang, Haiyun and Jia, Jiaya},
   journal={arXiv preprint arXiv:2312.17080},
   year={2024}
 }
