@@ -77,7 +77,8 @@ def process_eval_results(human_eval_res_path, gpt4_eval_res_path):
                 
 
 def main():
-    mr_gsm8k_path = '/dataset/zhongshenzeng/DiagGSM8K'
+    # TODO: modify this path to your local path 
+    mr_gsm8k_path = 'XXX'
     eval_stats = {}
     for entry in os.scandir(f'{mr_gsm8k_path}/eval_results/'):
         if entry.is_file() and entry.name.endswith('eval_results.json'):
