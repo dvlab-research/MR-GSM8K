@@ -1,3 +1,5 @@
+import os
+import json 
 import math
 
 def MCC_score(tp, tn, fp, fn):
@@ -29,58 +31,63 @@ def construct_eval_stats(basic_stats, correct_sol_num=1427, incorrect_sol_num=15
     }
     return final_stats
 
-def main():
-    
-    eval_stats = {
-        "Claude-2": construct_eval_stats({
-                't1-tp': 962,
-                't1-tn': 1056,
-                't2_corr_num':331,
-                't3_corr_num_human':185,
-                't3_corr_num_auto':224,
-            }),
-        "GPT3-5": construct_eval_stats({
-                't1-tp': 1125,
-                't1-tn': 621,
-                't2_corr_num':179,
-                't3_corr_num_human':73,
-                't3_corr_num_auto':73,
-            }),
-        "GPT4":construct_eval_stats({
-                't1-tp': 985,
-                't1-tn': 1425,
-                't2_corr_num':823,
-                't3_corr_num_human':677,
-                't3_corr_num_auto':732,
-            }),
-        "WizardMath":construct_eval_stats({
-                't1-tp': 1176,
-                't1-tn': 43,
-                't2_corr_num':6,
-                't3_corr_num_human':1,
-                't3_corr_num_auto':1,
-            }),
-        "Mammoth":construct_eval_stats({
-                't1-tp': 1410,
-                't1-tn': 43,
-                't2_corr_num':4,
-                't3_corr_num_human':1,
-                't3_corr_num_auto':2,
-            }),
-        "MetaMath":construct_eval_stats({
-                't1-tp': 1305,
-                't1-tn': 166,
-                't2_corr_num':22,
-                't3_corr_num_human':6,
-                't3_corr_num_auto':7,
-            }),
-        
-        "Lllama2":construct_eval_stats({
-                't1-tp': 453,
-                't1-tn': 1156,
-                't2_corr_num':327,
-                't3_corr_num_human':99,
-                't3_corr_num_auto':139,
-            })
+def process_eval_results(human_eval_res_path, gpt4_eval_res_path):
+    with open(human_eval_res_path) as file:
+        human_eval_res = json.load(file)
+    task1_true_positive, task1_true_negative = 0, 0
+    task2_accy, task3_accy_human = 0, 0
+    task3_accy_auto = 0
+    step_mapper = {f"step {i}": f"{i}"  for i in range(30)}
+    for data in human_eval_res:
+        eval_key = [key for key in data.keys() if '_eval_output' in key][0]
+        if data[eval_key]['correctness_pred'].lower() == 'incorrect':
+            correctness_pred = 'wrong'
+        else:
+            correctness_pred = data[eval_key]['correctness_pred'].lower()
+        if data['model_output_solution_correctness'].lower() == correctness_pred:
+            if data['model_output_solution_correctness'].lower() == 'correct':
+                task1_true_positive +=1
+            else:
+                task1_true_negative +=1
+                # only if the solution is incorrect and the model agrees on the incorrectness do 
+                # we look into task2 and task3 performance
+                if data[eval_key]['error_step_pred'].isdigit():
+                    error_step_pred = data[eval_key]['error_step_pred'].strip()
+                elif data[eval_key]['error_step_pred'].strip().lower() in step_mapper:
+                    error_step_pred = step_mapper[data[eval_key]['error_step_pred'].strip().lower()]
+                else:
+                    error_step_pred = ''
+                if error_step_pred == str(data['model_output_solution_first_error_step']):
+                    task2_accy += 1
+                    if data['error_reason_correctness'].lower() == 'correct':
+                        task3_accy_human +=1
+
+    with open(gpt4_eval_res_path) as file:
+        gpt4_eval_res = json.load(file)
+        for data in gpt4_eval_res:
+            if 'correct' in data['gpt4_error_reason_correctness_analysis']['Final Decision'].lower():
+                task3_accy_auto += 1
+    return {
+        't1-tp': task1_true_positive,
+        't1-tn': task1_true_negative,
+        't2_corr_num': task2_accy,
+        't3_corr_num_human': task3_accy_human,
+        't3_corr_num_auto': task3_accy_auto
     }
-    print('Claude-2', mr_score(model_stat=eval_stats['Claude-2']))
+                
+
+def main():
+    mr_gsm8k_path = '/dataset/zhongshenzeng/DiagGSM8K'
+    eval_stats = {}
+    for entry in os.scandir(f'{mr_gsm8k_path}/eval_results/'):
+        if entry.is_file() and entry.name.endswith('eval_results.json'):
+            model_name = entry.name.split('_eval_results.json')[0]
+            gpt4_eval_res_path = f'{mr_gsm8k_path}/eval_results/gpt4-grading/{entry.name}'
+            eval_stats[model_name] = process_eval_results(entry.path, gpt4_eval_res_path)
+    
+    for model in eval_stats:
+        print(f"{model}: {mr_score(model_stat=construct_eval_stats(eval_stats[model]))} ")
+
+
+if __name__ == '__main__':
+    main()
