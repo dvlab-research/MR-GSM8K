@@ -68,9 +68,14 @@ There are 3000 data instances in the MR-GSM8K benchmark and you can access it at
 ```  
 
 ## Scripts
-To reproduce the results from the paper, see `scripts/eval_*.py` files for more details. Most of them should be self-explanatory.
-To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `scripts/run.sh` to invoke the `scripts/train_math.py` script modified from MetaMath repo. The finetuning data is provided in `dataset/synthesized_training_data.jsonl`. You might want to blend it with the GSM8K training set to reproduce our setup.  
-The `scripts/auto_grade_error_reasons.py` script is what we used for auto labelling the error reasons and the MR-Score is calculated from the naive implementation script of `scripts/calculate_mr_score.py`.
+To reproduce the results from the paper or test it with your own models, please see `scripts/eval_*.py` files for more details. 
+Here is a high level description of how you can proceed with the base scripts we provide:
+1. The `eval_closed_source_models.py` script is prepared for your convenience to test commercial LLMs via APIs. If you are testing with open-sourced models or your own local LLMs you can use our `eval_open_source_models.py` script. Both of them contain the pipeline of loading the Mr-GSM8k dataset, constructing the corresponding model, querying and result parsing.
+2. Once you have run the eval scripts and got the response from the models, then our annotation should be suffice to determine if the evaluated model has successfully determined the solution correctness and first error step if applicable. However, for the error reason, you either need to manually annotate for yourself or utilize our gpt4 helper script `auto_grade_error_reasons.py` to determine if the error reason given by the evaluated model is aligned with the reasons given by our annotator.
+3. The above process is how we collect the results in our eval_results folder. Given these eval results, you can now utilize the calculate_mr_score.py script to get the mr-score. Here is how it works: It will analyze the eval result file, utilize the ground truth annotation to gather all the statistics for the task1(determine solution correctness), task2(find the first error step) and task3(detemine the error reason). Then it will combine the stats from all three tasks and unify it under the mr-score.
+4. To try out the latest mr-score calculation script, simply update the repo path in the main function, and run it. You should be able to get the same statistics as shown in the readme table.
+5. To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `scripts/run.sh` to invoke the `scripts/train_math.py` script modified from MetaMath repo. The finetuning data is provided in `dataset/synthesized_training_data.jsonl`. You might want to blend it with the GSM8K training set to reproduce our setup.  
+
 
 ## Citation
 
