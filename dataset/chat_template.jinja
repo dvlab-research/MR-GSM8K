@@ -1,0 +1,14 @@
+{# This line checks if there are any system messages and includes the last one if present #}
+{{ (messages|selectattr('role', 'equalto', 'system')|list|last).content|trim if (messages|selectattr('role', 'equalto', 'system')|list) else '' }}
+
+{# This line introduces the chat and sets the context for the instruction #}
+Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
+{% for message in messages %}
+{% if message['role'] == 'user' %}
+### Instruction:
+{{ message['content']|trim }}
+{% endif %}
+{% endfor %}
+
+### Response:

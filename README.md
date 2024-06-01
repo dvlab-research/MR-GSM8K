@@ -32,7 +32,7 @@ The formula of MR-Score is defined as
 ```
 MR-Score = w_1 * MCC + w_2 * Accuracy(step) + w_3 * Accuracy(reason)
 ```
-where w_1, w_2, w_3 are chosen empirically as 0.2, 0.3 and 0.5. For more discussion on the metrics please refer to section-3 of the paper.
+where w_1, w_2, w_3 are chosen empirically. For more discussion on the metrics please refer to section-3 of the paper.
 
 ## Evaluation results
 Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance, including True Positive Rate (TPR), True Negative Rate (TNR) and Matthews Correlation Coefficient. The 'Step' column represents the accuracy of correctly identifying an incorrect solution and pinpointing the first error step. 'S+R/M' column showcased the accuracy of not only locating the first error step in incorrect solutions but also correctly explaining the error's rationale. The overall MR-Score/M is a normalized metric ranges from 0 to 1 and calculated based on formula described in Section-3 of the paper. The M/A here indicate that the error reason is either labelled manually or by by GPT4-Turbo-1106 and MR-Score is calculated based on the respective results. 
@@ -68,13 +68,34 @@ There are 3000 data instances in the MR-GSM8K benchmark and you can access it at
 ```  
 
 ## Scripts
-To reproduce the results from the paper or test it with your own models, please see `scripts/eval_*.py` files for more details. 
-Here is a high level description of how you can proceed with the base scripts we provide:
-1. The `eval_closed_source_models.py` script is prepared for your convenience to test commercial LLMs via APIs. If you are testing with open-sourced models or your own local LLMs you can use our `eval_open_source_models.py` script. Both of them contain the pipeline of loading the Mr-GSM8k dataset, constructing the corresponding model, querying and result parsing.
-2. Once you have run the eval scripts and got the response from the models, then our annotation should be suffice to determine if the evaluated model has successfully determined the solution correctness and first error step if applicable. However, for the error reason, you either need to manually annotate for yourself or utilize our gpt4 helper script `auto_grade_error_reasons.py` to determine if the error reason given by the evaluated model is aligned with the reasons given by our annotator.
-3. The above process is how we collect the results in our eval_results folder. Given these eval results, you can now utilize the calculate_mr_score.py script to get the mr-score. Here is how it works: It will analyze the eval result file, utilize the ground truth annotation to gather all the statistics for the task1(determine solution correctness), task2(find the first error step) and task3(detemine the error reason). Then it will combine the stats from all three tasks and unify it under the mr-score.
-4. To try out the latest mr-score calculation script, simply update the repo path in the main function, and run it. You should be able to get the same statistics as shown in the readme table.
-5. To reproduce the Qlora finetuning of the 70B llama2 experiment please use the `scripts/run.sh` to invoke the `scripts/train_math.py` script modified from MetaMath repo. The finetuning data is provided in `dataset/synthesized_training_data.jsonl`. You might want to blend it with the GSM8K training set to reproduce our setup.  
+To reproduce the results from the paper or test it with your own models, please see `scripts/eval_mr_gsm8k.py` files for more details. 
+Here is a high level description of how you can evaluate your models on own dataset with two simple commands:
+1. If you are evaluating a local open-sourced model, please consider using vllm library to serve the API requests in OpenAI compatible way, as it is fast and easy to use with a single command:
+```
+python -u -m vllm.entrypoints.openai.api_server --host 0.0.0.0 --port 10245 --model /absolute/path/to/your/local/model --dtype half --gpu-memory-utilization 0.9  --max-model-len 8192 --tensor-parallel-size 4
+```   
+2. Now that you have your local model served in an OpenAI API compatible way, we can asynchrounously request your model in a multi-thread way. Use the following command to invoke our eval_mr_gsm8k.py:
+```
+python scripts/eval_mr_gsm8k.py 
+  --diagGSM8k_file_path './dataset/MR-GSM8K.json'   
+  --output_dir './eval_results' 
+  --eval_base_url 'http://0.0.0.0:10245/v1'  
+  --eval_api_key 'placeholder'  
+  --eval_model_name '/absolute/path/to/your/local/model' 
+  --score_base_url '' 
+  --score_api_key 'sk-xxxx' 
+  --score_model_name 'gpt-4-turbo'  
+  --shot_num 0  
+  --max_workers 5   
+  --demo_path './dataset/k-shot-demos.json'
+```
+Unless you start your vllm server with explicit api_key requirement, just leave the eval_api_key with any non-empty string. The score-base-url/api-key/model-name are used to create an OpenAI client to score the error reason automatically. We recommend using GPT-4-Turbo for this task. Shot number controls the number of demonstration for in context learning. The max-workers controls the thread numbers to request your local models. 
+
+Note 1: If you are evaluating some closed source commercial models, and they are not compatible with the openAI client, you might need to change the `single_thread_eval_generation` function in the script.
+
+Note 2: If the local model you are requesting is way too old to support apply_chat_template in its tokenizer, explicitly add this extra argument when you start your vllm server `--chat-template /xxx/chat_template.jinja`. We have provided a sample template in Alpaca format in `./dataset/chat_template.jinja`. Modify it to suit your need. 
+
+Note 3: If your lanaguage model is not fully supported in vllm (some latest models have the stop token for ending inference messed up in vllm), you might need to set the `--stop_token_ids xxx` explicitly, for llama3, this magic special_token_id is `--stop_token_ids 128009`. Please add it to the end of arguments for `eval_mr_gsm8k` script.
 
 
 ## Citation
