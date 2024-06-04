@@ -95,7 +95,7 @@ Note 1: If you are evaluating some closed source commercial models, and they are
 
 Note 2: If the local model you are requesting is way too old to support apply_chat_template in its tokenizer, explicitly add this extra argument when you start your vllm server `--chat-template /xxx/chat_template.jinja`. We have provided a sample template in Alpaca format in `./dataset/chat_template.jinja`. Modify it to suit your need. 
 
-Note 3: If your lanaguage model is not fully supported in vllm (some latest models have the stop token for ending inference messed up in vllm), you might need to set the `--stop_token_ids xxx` explicitly, for llama3, this magic special_token_id is `--stop_token_ids 128009`. Please add it to the end of arguments for `eval_mr_gsm8k` script.
+Note 3: If your lanaguage model is not fully supported in vllm (some latest models have the stop token for ending inference messed up in vllm), you might need to set the `--stop_token_ids xxx` explicitly, for llama3, this magic special_token_id is `--stop_token_ids 128009`. Please add it to the end of arguments for `eval_mr_gsm8k` script. 
 
 
 ## Citation
