@@ -6,15 +6,9 @@
 🤗 <a href="https://huggingface.co/datasets/Randolphzeng/DiagGSM8K" target="_blank">HF Dataset</a> • 📃 <a href="https://arxiv.org/abs/2312.17080" target="_blank"> Arxiv Paper </a><br>
 </p>
 
-Welcome to the official repository for the MR-GSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation".
-We encourage other SOTA Math LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
+Welcome to the official repository for the MR-GSM8K dataset and related research. This repository serves as a hub for resources associated with our recent publication "MR-GSM8K: A Meta-Reasoning Benchmark for Large Language Model Evaluation".
 
-## News
-[2024.01.19] We submitted our second draft of MR-GSM8K(renamed from DiagGSM8k) paper with minor cleaning of the dataset and introduced our novel metrics MR-Score. This update is mainly for naming consistency for the future expansion to more subjects and different difficulties. Please rest in sure that this should be our (hopefully) last major updates on the repo config and we are sorry for the confusion!
-
-[2024.01.07] We are working hard on creating a more holistic and multifaceted evaluation benchmark that broadens the scope and difficulty levels of current MR-GSM8K. Please stay tuned and consider adding a star for updates.
-
-[2023.12.28] We submitted our first draft of MR-GSM8k paper and also open-sourced the benchmark and its evaluation results
+We provided a demo evaluate script for you to try out benchmark in **mere two steps**. We encourage other SOTA LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
 ## About the Evaluation Benchmark
 
@@ -30,23 +24,33 @@ MR-Score is a weighted combination of three metrics. The first one is the Matthe
 
 The formula of MR-Score is defined as 
 ```
-MR-Score = w_1 * MCC + w_2 * Accuracy(step) + w_3 * Accuracy(reason)
+MR-Score = w_1 * max(0, MCC) + w_2 * Accuracy(step) + w_3 * Accuracy(reason)
 ```
 where w_1, w_2, w_3 are chosen empirically. For more discussion on the metrics please refer to section-3 of the paper.
 
 ## Evaluation results
 Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance, including True Positive Rate (TPR), True Negative Rate (TNR) and Matthews Correlation Coefficient. The 'Step' column represents the accuracy of correctly identifying an incorrect solution and pinpointing the first error step. 'S+R/M' column showcased the accuracy of not only locating the first error step in incorrect solutions but also correctly explaining the error's rationale. The overall MR-Score/M is a normalized metric ranges from 0 to 1 and calculated based on formula described in Section-3 of the paper. The M/A here indicate that the error reason is either labelled manually or by by GPT4-Turbo-1106 and MR-Score is calculated based on the respective results. 
 
-| Model           | Eval Method | TPR     | TNR     | MCC   | Step   | S+R/M  | MR-Score/M | MR-Score/A |
-|-----------------|-------------|---------|---------|-------|--------|--------|------------|------------|
-| Claude2         | 0-shot      | 67.41%  | 67.13%  | 0.345 | 21.04% | 11.76% | 0.191      | 0.203      |
-| GPT3-5          | 0-shot      | 78.84%  | 39.48%  | 0.198 | 11.38% | 4.64%  | 0.097      | 0.097      |
-| GPT4            | 0-shot      | 69.03%  | 90.59%  | 0.614 | 52.32% | 43.04% | 0.495      | 0.512      |
-| WizardMath-70B  | 3-shot      | 82.41%  | 2.73%   | -0.250| 0.38%  | 0.06%  | 0.001      | 0.001      |
-| Mammoth-70B     | 3-shot      | 98.81%  | 2.73%   | 0.055 | 0.25%  | 0.06%  | 0.012      | 0.012      |
-| MetaMath-70B    | 3-shot      | 91.45%  | 10.55%  | 0.034 | 1.40%  | 0.38%  | 0.013      | 0.013      |
-| llama2-70B-diag | 0-shot      | 31.74%  | 73.49%  | 0.058 | 20.79% | 6.29%  | 0.105      | 0.118      |
-
+| Model                | Task1-TPR k=0 | Task1-TPR k=3 | Task1-TNR k=0 | Task1-TNR k=3 | Task1-MCC k=0 | Task1-MCC k=3 | Task2-Accy k=0 | Task2-Accy k=3 | Task3-Accy k=0 | Task3-Accy k=3 | MR-Score k=0 | MR-Score k=3 |
+|----------------------|---------------|---------------|---------------|---------------|---------------|---------------|----------------|----------------|----------------|----------------|--------------|--------------|
+| **Open-Source Small**                                                                                                                   |
+| Qwen-1.8B            | 21.8          | 33.3          | 0.1           | 3.9           | 0.0           | 0.0           | 0.0            | 0.4            | 0.0            | 0.0            | 0.0          | 0.1          |
+| Phi3-3.8B            | 11.3          | 62.6          | 98.5          | 72.6          | 20.4          | 35.4          | 32.9           | 26.3           | 18.0           | 13.9           | 22.9         | 21.9         |
+| **Open-Source Medium**                                                                                                                  |
+| Deepseek-Math-7B-RL  | 77.3          | 2.4           | 52.3          | 0.4           | 30.4          | 0.0           | 9.8            | 0.1            | 5.1            | 0.1            | 11.6         | 0.1          |
+| WizardMath-v1.1-7B   | 99.3          | 6.7           | 0.5           | 0.6           | 0.0           | 0.0           | 0.3            | 0.2            | 0.3            | 0.1            | 0.2          | 0.1          |
+| Llama3-8B-Instruct   | 3.2           | 40.9          | 98.3          | 80.3          | 5.1           | 23.1          | 29.1           | 23.3           | 15.0           | 11.6           | 17.2         | 17.4         |
+| **Open-Source Large**                                                                                                                   |
+| MAmmoTH-70B          | 88.0          | 89.8          | 23.1          | 2.8           | 14.6          | 0.0           | 3.9            | 0.3            | 1.8            | 0.3            | 5.0          | 0.2          |
+| MetaMath-70B         | 7.8           | 0.0           | 0.3           | 0.0           | 0.0           | 0.0           | 0.1            | 0.0            | 0.0            | 0.0            | 0.0          | 0.0          |
+| Qwen1.5-72B-Chat     | 83.7          | 87.7          | 57.1          | 52.4          | 42.0          | 42.5          | 19.1           | 23.1           | 13.5           | 15.8           | 20.9         | 23.3         |
+| Deepseek-v2-236B     | 60.1          | 88.2          | 87.2          | 61.5          | 49.4          | 51.2          | 26.8           | 32.4           | 23.8           | 28.3           | 29.8         | 34.1         |
+| Llama3-70B-Instruct  | 67.6          | 89.3          | 83.0          | 66.0          | 51.3          | 56.4          | 38.9           | 33.5           | 32.7           | 25.7           | 38.3         | 34.2         |
+| **Closed-Source LLMs**                                                                                                                  |
+| Claude3-Haiku        | 70.4          | 99.0          | 51.7          | 8.1           | 22.5          | 16.7          | 17.2           | 2.3            | 11.3           | 1.8            | 15.3         | 4.9          |
+| GPT-3.5-Turbo        | 16.3          | 59.7          | 93.8          | 65.7          | 16.2          | 25.5          | 30.6           | 21.0           | 20.3           | 13.0           | 22.6         | 17.9         |
+| Claude3-Sonnet       | 35.1          | 88.4          | 89.8          | 44.8          | 30.0          | 36.5          | 25.2           | 18.8           | 19.9           | 15.6           | 23.5         | 20.8         |
+| GPT-4-Turbo          | 69.5          | 83.0          | 91.8          | 84.2          | 63.3          | 67.2          | 48.8           | 51.7           | 46.3           | 48.1           | 50.5         | 53.0         |
 
 
 
@@ -67,7 +71,7 @@ There are 3000 data instances in the MR-GSM8K benchmark and you can access it at
 }
 ```  
 
-## Scripts
+## Evaluate on MR-GSM8K
 To reproduce the results from the paper or test it with your own models, please see `scripts/eval_mr_gsm8k.py` files for more details. 
 Here is a high level description of how you can evaluate your models on own dataset with two simple commands:
 1. If you are evaluating a local open-sourced model, please consider using vllm library to serve the API requests in OpenAI compatible way, as it is fast and easy to use with a single command:
@@ -103,9 +107,16 @@ Note 3: If your lanaguage model is not fully supported in vllm (some latest mode
 If you use the MR-GSM8K dataset or find our research beneficial to your work, we encourage you to cite our paper. Here is the BibTeX entry for citation:
 
 ```bibtex
-@article{zeng2024mrgsm8k,
-  title={MR-GSM8K: A Meta-Reasoning Revolution in Large Language Model Evaluation},
-  author={Zeng, Zhongshen and Chen, Pengguang and Liu, Shu and Jiang, Haiyun and Jia, Jiaya},
-  journal={arXiv preprint arXiv:2312.17080},
-  year={2024}
+@article{DBLP:journals/corr/abs-2312-17080,
+  author       = {Zhongshen Zeng and Pengguang Chen and Shu Liu and Haiyun Jiang and Jiaya Jia},
+  title        = {MR-GSM8K: A Meta-Reasoning Benchmark for Large Language Model Evaluation},
+  journal      = {CoRR},
+  volume       = {abs/2312.17080},
+  year         = {2023},
+  url          = {https://doi.org/10.48550/arXiv.2312.17080},
+  doi          = {10.48550/ARXIV.2312.17080},
+  eprinttype    = {arXiv},
+  eprint       = {2312.17080},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2312-17080.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
 }
