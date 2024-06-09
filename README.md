@@ -31,26 +31,26 @@ where w_1, w_2, w_3 are chosen empirically. For more discussion on the metrics p
 ## Evaluation results
 Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance, including True Positive Rate (TPR), True Negative Rate (TNR) and Matthews Correlation Coefficient. The 'Step' column represents the accuracy of correctly identifying an incorrect solution and pinpointing the first error step. 'S+R/M' column showcased the accuracy of not only locating the first error step in incorrect solutions but also correctly explaining the error's rationale. The overall MR-Score/M is a normalized metric ranges from 0 to 1 and calculated based on formula described in Section-3 of the paper. The M/A here indicate that the error reason is either labelled manually or by by GPT4-Turbo-1106 and MR-Score is calculated based on the respective results. 
 
-| Model                | Task1-TPR k=0 | Task1-TPR k=3 | Task1-TNR k=0 | Task1-TNR k=3 | Task1-MCC k=0 | Task1-MCC k=3 | Task2-Accy k=0 | Task2-Accy k=3 | Task3-Accy k=0 | Task3-Accy k=3 | MR-Score k=0 | MR-Score k=3 |
-|----------------------|---------------|---------------|---------------|---------------|---------------|---------------|----------------|----------------|----------------|----------------|--------------|--------------|
+| Model                | Task1-MCC k=0 | Task1-MCC k=3 | Task2-Accy k=0 | Task2-Accy k=3 | Task3-Accy k=0 | Task3-Accy k=3 | MR-Score k=0 | MR-Score k=3 |
+|----------------------|---------------|---------------|----------------|----------------|----------------|----------------|--------------|--------------|
 | **Open-Source Small**                                                                                                                   |
-| Qwen-1.8B            | 21.8          | 33.3          | 0.1           | 3.9           | 0.0           | 0.0           | 0.0            | 0.4            | 0.0            | 0.0            | 0.0          | 0.1          |
-| Phi3-3.8B            | 11.3          | 62.6          | 98.5          | 72.6          | 20.4          | 35.4          | 32.9           | 26.3           | 18.0           | 13.9           | 22.9         | 21.9         |
+| Qwen-1.8B            | 0.0           | 0.0           | 0.0            | 0.4            | 0.0            | 0.0            | 0.0          | 0.1          |
+| Phi3-3.8B            | 20.4          | 35.4          | 32.9           | 26.3           | 18.0           | 13.9           | 22.9         | 21.9         |
 | **Open-Source Medium**                                                                                                                  |
-| Deepseek-Math-7B-RL  | 77.3          | 2.4           | 52.3          | 0.4           | 30.4          | 0.0           | 9.8            | 0.1            | 5.1            | 0.1            | 11.6         | 0.1          |
-| WizardMath-v1.1-7B   | 99.3          | 6.7           | 0.5           | 0.6           | 0.0           | 0.0           | 0.3            | 0.2            | 0.3            | 0.1            | 0.2          | 0.1          |
-| Llama3-8B-Instruct   | 3.2           | 40.9          | 98.3          | 80.3          | 5.1           | 23.1          | 29.1           | 23.3           | 15.0           | 11.6           | 17.2         | 17.4         |
+| Deepseek-Math-7B-RL  | 30.4          | 0.0           | 9.8            | 0.1            | 5.1            | 0.1            | 11.6         | 0.1          |
+| WizardMath-v1.1-7B   | 0.0           | 0.0           | 0.3            | 0.2            | 0.3            | 0.1            | 0.2          | 0.1          |
+| Llama3-8B-Instruct   | 5.1           | 23.1          | 29.1           | 23.3           | 15.0           | 11.6           | 17.2         | 17.4         |
 | **Open-Source Large**                                                                                                                   |
-| MAmmoTH-70B          | 88.0          | 89.8          | 23.1          | 2.8           | 14.6          | 0.0           | 3.9            | 0.3            | 1.8            | 0.3            | 5.0          | 0.2          |
-| MetaMath-70B         | 7.8           | 0.0           | 0.3           | 0.0           | 0.0           | 0.0           | 0.1            | 0.0            | 0.0            | 0.0            | 0.0          | 0.0          |
-| Qwen1.5-72B-Chat     | 83.7          | 87.7          | 57.1          | 52.4          | 42.0          | 42.5          | 19.1           | 23.1           | 13.5           | 15.8           | 20.9         | 23.3         |
-| Deepseek-v2-236B     | 60.1          | 88.2          | 87.2          | 61.5          | 49.4          | 51.2          | 26.8           | 32.4           | 23.8           | 28.3           | 29.8         | 34.1         |
-| Llama3-70B-Instruct  | 67.6          | 89.3          | 83.0          | 66.0          | 51.3          | 56.4          | 38.9           | 33.5           | 32.7           | 25.7           | 38.3         | 34.2         |
+| MAmmoTH-70B          | 14.6          | 0.0           | 3.9            | 0.3            | 1.8            | 0.3            | 5.0          | 0.2          |
+| MetaMath-70B         | 0.0           | 0.0           | 0.1            | 0.0            | 0.0            | 0.0            | 0.0          | 0.0          |
+| Qwen1.5-72B-Chat     | 42.0          | 42.5          | 19.1           | 23.1           | 13.5           | 15.8           | 20.9         | 23.3         |
+| Deepseek-v2-236B     | 49.4          | 51.2          | 26.8           | 32.4           | 23.8           | 28.3           | 29.8         | 34.1         |
+| Llama3-70B-Instruct  | 51.3          | 56.4          | 38.9           | 33.5           | 32.7           | 25.7           | 38.3         | 34.2         |
 | **Closed-Source LLMs**                                                                                                                  |
-| Claude3-Haiku        | 70.4          | 99.0          | 51.7          | 8.1           | 22.5          | 16.7          | 17.2           | 2.3            | 11.3           | 1.8            | 15.3         | 4.9          |
-| GPT-3.5-Turbo        | 16.3          | 59.7          | 93.8          | 65.7          | 16.2          | 25.5          | 30.6           | 21.0           | 20.3           | 13.0           | 22.6         | 17.9         |
-| Claude3-Sonnet       | 35.1          | 88.4          | 89.8          | 44.8          | 30.0          | 36.5          | 25.2           | 18.8           | 19.9           | 15.6           | 23.5         | 20.8         |
-| GPT-4-Turbo          | 69.5          | 83.0          | 91.8          | 84.2          | 63.3          | 67.2          | 48.8           | 51.7           | 46.3           | 48.1           | 50.5         | 53.0         |
+| Claude3-Haiku        | 22.5          | 16.7          | 17.2           | 2.3            | 11.3           | 1.8            | 15.3         | 4.9          |
+| GPT-3.5-Turbo        | 16.2          | 25.5          | 30.6           | 21.0           | 20.3           | 13.0           | 22.6         | 17.9         |
+| Claude3-Sonnet       | 30.0          | 36.5          | 25.2           | 18.8           | 19.9           | 15.6           | 23.5         | 20.8         |
+| GPT-4-Turbo          | 63.3          | 67.2          | 48.8           | 51.7           | 46.3           | 48.1           | 50.5         | 53.0         |
 
 
 
@@ -74,7 +74,7 @@ There are 3000 data instances in the MR-GSM8K benchmark and you can access it at
 ## Evaluate on MR-GSM8K
 To reproduce the results from the paper or test it with your own models, please see `scripts/eval_mr_gsm8k.py` files for more details. 
 Here is a high level description of how you can evaluate your models on own dataset with two simple commands:
-1. If you are evaluating a local open-sourced model, please consider using vllm library to serve the API requests in OpenAI compatible way, as it is fast and easy to use with a single command:
+1. If you are evaluating a local open-sourced model, please consider using vllm library to serve the API requests in OpenAI compatible way, as it is very easy to use with a single command:
 ```
 python -u -m vllm.entrypoints.openai.api_server --host 0.0.0.0 --port 10245 --model /absolute/path/to/your/local/model --dtype half --gpu-memory-utilization 0.9  --max-model-len 8192 --tensor-parallel-size 4
 ```   
