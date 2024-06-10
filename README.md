@@ -29,12 +29,12 @@ MR-Score = w_1 * max(0, MCC) + w_2 * Accuracy(step) + w_3 * Accuracy(reason)
 where w_1, w_2, w_3 are chosen empirically. For more discussion on the metrics please refer to section-3 of the paper.
 
 ## Evaluation results
-Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance, including True Positive Rate (TPR), True Negative Rate (TNR) and Matthews Correlation Coefficient. The 'Step' column represents the accuracy of correctly identifying an incorrect solution and pinpointing the first error step. 'S+R/M' column showcased the accuracy of not only locating the first error step in incorrect solutions but also correctly explaining the error's rationale. The overall MR-Score/M is a normalized metric ranges from 0 to 1 and calculated based on formula described in Section-3 of the paper. The M/A here indicate that the error reason is either labelled manually or by by GPT4-Turbo-1106 and MR-Score is calculated based on the respective results. 
+Evaluation Results of Models on MR-GSM8k: This table presents a detailed breakdown of each model's performance on the three sub-tasks (determining solution correctness, first error step and error reason) under zero shot (k=0) and few shots (k=3) settings. The temperature is set to 0 to reduce variance and facillitate reproduction of the results. Note that most specialized math models fail to follow our task instructions with or without few shot demonstrations.  
 
 | Model                | Task1-MCC k=0 | Task1-MCC k=3 | Task2-Accy k=0 | Task2-Accy k=3 | Task3-Accy k=0 | Task3-Accy k=3 | MR-Score k=0 | MR-Score k=3 |
 |----------------------|---------------|---------------|----------------|----------------|----------------|----------------|--------------|--------------|
 | **Open-Source Small**                                                                                                                   |
-| Qwen-1.8B            | 0.0           | 0.0           | 0.0            | 0.4            | 0.0            | 0.0            | 0.0          | 0.1          |
+| Qwen1.5-1.8B         | 0.0           | 0.0           | 0.0            | 0.4            | 0.0            | 0.0            | 0.0          | 0.1          |
 | Phi3-3.8B            | 20.4          | 35.4          | 32.9           | 26.3           | 18.0           | 13.9           | 22.9         | 21.9         |
 | **Open-Source Medium**                                                                                                                  |
 | Deepseek-Math-7B-RL  | 30.4          | 0.0           | 9.8            | 0.1            | 5.1            | 0.1            | 11.6         | 0.1          |
