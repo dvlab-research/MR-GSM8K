@@ -1,5 +1,5 @@
 # MR-GSM8K - A Novel Benchmark for Evaluating Reasoning in LLMs
-[![Code License](https://img.shields.io/badge/Code%20License-Apache_2.0-green.svg)](CODE_LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/dvlab-research/MR-GSM8K/blob/main/LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
 <p align="center">
