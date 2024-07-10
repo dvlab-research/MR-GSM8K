@@ -10,6 +10,8 @@ Welcome to the official repository for the MR-GSM8K dataset and related research
 
 We provided a demo evaluate script for you to try out benchmark in **mere two steps**. We encourage other SOTA LLMS to try out our benchmark and return its results to us. We would be happy to include it in the `eval_results` and update the evaluation tables below for you.
 
+We recently just released the [Mr-Ben: A Comprehensive Meta-Reasoning Benchmark for Large Language Models](https://github.com/dvlab-research/Mr-Ben). It is a natural continuation of Mr-GSM8k and built from well known datasets like MMLU, MHPP and LogiQA. If you are interested in evaluating the reasoning ability of your LLMs, please do not forget to check it out!
+
 ## About the Evaluation Benchmark
 
 MR-GSM8K is a challenging benchmark designed to evaluate the meta-reasoning capabilities of state-of-the-art Large Language Models (LLMs). It goes beyond traditional evaluation metrics by focusing on the reasoning process rather than just the final answer, thus offering a more nuanced assessment of a model's cognitive abilities.
